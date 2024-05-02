@@ -1,0 +1,58 @@
+@startuml
+
+'Commento con l'apostrofo
+'Visualmente è una cartella nello schema
+package GeometryLibrary <<Folder>>
+{
+
+
+' Per creare una classe
+class Triangle{
+'Qua listo attributi e metodi, il + per il pubblico
++  Vertices : Matrix3d
+
+'Costruttore
++ Triangle(Vertices)
+
+'Metodo che calcola l'area, non prende nulla in input perchè i vertici sono già noti
++double computeArea() 
+}
+
+'Creo un unica classe per modellizzare la nostra lista di poligoni
+class Polygons 
+{
++ Vertices : MatrixXd
++ listPolygons : vector<vector<unsigned int>>
++ vector<vector<vector<unsigned int>>> computeTriangulation()
+'Per il calcolo delle aree
++ vector <double> computeArea()
+'Metodo un po' misterioso di cui non so molto, è di Vicini
++ void gedimInterface(vector<vector<unsigned int>>&)
+
+..Non member function..
+void importPolygons(path, polygons)
+..TEST Polygons..
+TESTCOMPUTEAREA
+TESTTRIANGULATION
+}
+
+}
+
+package Gedim <<Frame>>
+{
+}
+Note "Gedim is an external library" as GedimNote 
+'Il nome della nota, sotto il collegamento alla libreria Gedim
+GedimNote.. Gedim
+
+'Gedim verrà sfruttato da polygons, in particolare 
+Gedim..> Polygons::gedimInterface
+
+
+'Relazione che sussiste tra classe poligono e classe triangolo (aggregazione)
+Triangle ..o Polygons
+
+Triangle "many" ..o "1" Polygons : is made up
+
+
+@enduml
